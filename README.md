@@ -1,3 +1,10 @@
+> **This is a fork of [jlevy/simple-modern-uv](https://github.com/jlevy/simple-modern-uv) with the following adaptations:**
+>
+> - **Type checker:** replaced [BasedPyright](https://github.com/detachhead/basedpyright) with [ty](https://github.com/astral-sh/ty), Astral's new Rust-based type checker
+> - **Python version:** minimum raised to 3.14 (classifiers updated accordingly)
+
+---
+
 [![As usual, XKCD has a comic for this](https://imgs.xkcd.com/comics/python_environment.png)](https://xkcd.com/1987/)
 
 (As usual, XKCD has a comic for this.
@@ -145,8 +152,7 @@ simple-modern-uv uses uses the tools I’ve come to think are best for new proje
   are even longer. This template makes all of that basically automatic with uv, GitHub
   Actions, and dynamic versioning.
 
-- Type checking with [**BasedPyright**](https://github.com/detachhead/basedpyright).
-  (See below for more on this.)
+- Type checking with [**ty**](https://github.com/astral-sh/ty), Astral's fast Rust-based type checker.
 
 - [**Pytest**](https://github.com/pytest-dev/pytest) for tests (with the excellent
   plugin [**pytest-sugar**](https://github.com/Teemu/pytest-sugar) for faster errors and
@@ -191,40 +197,13 @@ template and instead suggest adding your own or copying my recent rules from the
 
 ## What’s the Best Python Type Checker?
 
-The choice of what tool to use for type checking deserves some explanation.
-This seems to be a confusing area.
+This fork uses [**ty**](https://github.com/astral-sh/ty), the new type checker from
+Astral (the team behind uv and ruff). Written in Rust, ty is extremely fast and fits
+naturally alongside the other Astral tools already in this template.
 
-Like many, I’d previously been using [Mypy](https://github.com/python/mypy), the OG type
-checker for Python. Mypy has since been enhanced with
-[BasedMypy](https://github.com/KotlinIsland/basedmypy).
-
-The other popular alternative is Microsoft’s
-[Pyright](https://github.com/microsoft/pyright).
-And it has a newer extension and fork called
-[BasedPyright](https://github.com/DetachHead/basedpyright).
-
-All of these work in build systems.
-But this is a choice not just of build tooling—it is far preferable to have your type
-checker warnings align with your IDE warnings.
-With the rises of AI-powered IDEs like Cursor and Windsurf that are VSCode extensions,
-it seems like type checking support as a VSCode-compatible extension is essential.
-
-However, Microsoft’s popular
-[Mypy VSCode extension](https://marketplace.visualstudio.com/items?itemName=ms-python.mypy-type-checker)
-is licensed only for use in VSCode (not other IDEs) and
-[sometimes](https://forum.cursor.com/t/pylance-server-fails-to-initialize-due-to-licensing-restriction/48548)
-[refuses](https://forum.cursor.com/t/does-pylance-just-not-work-with-cursor-how-to-get-imports-in-quick-fix-menu/5747)
-to work in Cursor. [Cursor’s docs](https://docs.cursor.com/guides/languages/python)
-suggest Mypy but don’t suggest a VSCode extension.
-
-After some experimentation, I found
-[BasedPyright](https://github.com/detachhead/basedpyright) to be a credible improvement
-on [Pyright](https://github.com/microsoft/pyright).
-BasedPyright is well maintained, is faster than Mypy, and has a good
-[VSCode extension](https://marketplace.visualstudio.com/items?itemName=detachhead.basedpyright)
-that works with Cursor and other VSCode forks.
-So I have now switched this template to use BasedPyright.
-(But please drop a note in the Discussion tab if you have better suggestions.)
+Note that ty is still in early preview (0.0.x) and not yet feature-complete, but it is
+actively developed and already functional for most projects.
+See the [ty docs](https://docs.astral.sh/ty/) for details.
 
 ## What Does This Template Not Include?
 
